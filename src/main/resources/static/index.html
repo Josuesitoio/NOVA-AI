@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nova :: Explorador Exoplanetario Kepler</title>
+
+    <!-- 1. Estilos Tecnicos (src/main/resources/static/css/styles.css) -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 2. Lienzo Grafico Principal -->
+<!-- Aqui es donde Motor3DManager.js inicializa el WebGLRenderer de Three.js -->
+<canvas id="novaCanvas"></canvas>
+
+<!-- 3. Superposicion de la Interfaz de Usuario (UI Overlay) -->
+<!--pointer-events controlados por CSS para interactuar con el 3D de fondo -->
+<div class="ui-overlay">
+
+    <!-- Cabecera Superior (Identidad del Proyecto) -->
+    <header class="panel-fluido">
+        <h1>PROYECTO NOVA</h1>
+        <p>Visualizacion Avanzada de Telemetria NASA</p>
+    </header>
+
+    <!-- Seccion Central Izquierda: Controles de Busqueda -->
+    <section class="controls panel-fluido">
+        <h2>Explorador Local (Port 9090)</h2>
+
+        <div class="search-box">
+            <!-- Input alineado con la base de datos SQLite -->
+            <input type="text" id="kepidInput" placeholder="Ingrese KEPID (Ej. K00001.01)" spellcheck="false">
+            <button id="searchBtn">Explorar</button>
+        </div>
+
+        <!-- Lista rapida para la demostracion tecnica en Medellin -->
+        <div class="quick-list">
+            <p>Muestras AAA de alto rendimiento:</p>
+            <button class="kep-link" data-kep="K00001.01">K00001.01</button>
+            <button class="kep-link" data-kep="K00010.01">K00010.01</button>
+            <button class="kep-link" data-kep="K00119.01">K00119.01</button>
+        </div>
+    </section>
+
+    <!-- Seccion Inferior Izquierda: Panel de Telemetria Dinamica -->
+    <section class="telemetry-panel panel-fluido" id="telemetryPanel">
+        <h2>METRICAS DEL ASTRO</h2>
+
+        <!-- Estados de Carga y Error (Controlados por app.js) -->
+        <div id="loadingMessage" class="status-msg hide">Solicitando datos a Spring Boot...</div>
+        <div id="errorMessage" class="status-msg error hide">Error de conexion (9090)</div>
+
+        <!-- Visualizacion de Datos Fisicos (Sincronizado con DTO Java) -->
+        <div class="data-display hide" id="dataDisplay">
+            <div class="data-row">
+                <strong>ID NASA:</strong>
+                <span id="valKepid" class="value">--</span>
+            </div>
+            <div class="data-row">
+                <strong>Temperatura Estelar:</strong>
+                <span class="value"><span id="valTemp">--</span> K</span>
+            </div>
+            <div class="data-row">
+                <strong>Gravedad Superficial:</strong>
+                <span class="value"><span id="valGravedad">--</span> log(g)</span>
+            </div>
+            <div class="data-row">
+                <strong>Radio Planetario:</strong>
+                <span class="value"><span id="valRadio">--</span> R_Terra</span>
+            </div>
+            <div class="data-row">
+                <strong>Duracion Orbital:</strong>
+                <span class="value"><span id="valDia">--</span> dias</span>
+            </div>
+            <div class="data-row">
+                <strong>Temperatura Equilibrio:</strong>
+                <span class="value"><span id="valTempEq">--</span> K</span>
+            </div>
+
+            <!-- Flag tecnico que confirma el paso por la Red Neuronal en Java -->
+            <div class="ai-flag" id="aiFlag">Analisis IA Procesado (ONNX)</div>
+        </div>
+    </section>
+
+    <!-- Opcional: Footer tecnico sutil -->
+    <footer class="tecnica-footer">
+        Nova Engine v1.0 | WebGL 2.0 | Java 21 LTS
+    </footer>
+</div>
+
+<!-- 4. Configuracion de Modulos ES Nativo (Sin compilador) -->
+<!-- Import Map: Permite a los archivos JS usar 'import * from three' -->
+<script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.150.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.150.0/examples/jsm/controls/OrbitControls.js"
+      }
+    }
+</script>
+
+<!-- 5. Punto de Entrada de JavaScript Vanila (src/main/resources/static/js/app.js) -->
+<!-- Debe ser type="module" para soportar las importaciones internas -->
+<script type="module" src="app.js"></script>
+
+</body>
+</html>

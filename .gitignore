@@ -1,0 +1,45 @@
+### Archivos Base de Gradle ###
+HELP.md
+.gradle/
+build/
+# Excepción obligatoria: El wrapper de Gradle SÍ debe subirse para que compile en cualquier PC
+!gradle/wrapper/gradle-wrapper.jar
+
+### EXCEPCIONES CRÍTICAS DEL PROYECTO NOVA ###
+# Obligamos a Git a rastrear y subir tu base de datos y la red neuronal
+!*.db
+!*.sqlite
+!*.onnx
+!*.csv
+
+### Entornos de Desarrollo (Ignorar cachés locales) ###
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Sistema Operativo (Opcional pero recomendado) ###
+.DS_Store
+Thumbs.db
